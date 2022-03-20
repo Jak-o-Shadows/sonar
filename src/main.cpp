@@ -5,11 +5,13 @@
 #include <libopencm3/stm32/gpio.h>
 
 #include "taskBlink.hpp"
+#include "taskTransmit.hpp"
 
 extern "C" void* __dso_handle = (void*) &__dso_handle;  // Magic to do with destructors (which we shall try to avoid in embedded) // TOOD: Move to different file
 
 
 HeartbeatTask heartbeat;
+TransmitTask transmit;
 
 static void task2(void *args __attribute((unused))) {
 	for (;;) {
@@ -27,6 +29,7 @@ int main(void)
 
 	xTaskCreate(task2,"LED2",100,NULL,configMAX_PRIORITIES-1,NULL);
     heartbeat.start("heartbeat", configMINIMAL_STACK_SIZE, 1);
+    transmit.start("transmit", configMINIMAL_STACK_SIZE, 2);
 	vTaskStartScheduler();
 	for (;;);
 
