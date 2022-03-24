@@ -1,11 +1,11 @@
 #include "spiMaster.hpp"
 
-#include <libopencm3/stm32/f1/rcc.h>
+#include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/gpio.h>
 #include <libopencm3/stm32/spi.h>
 
 
-void SpiMaster::setup(void){
+void SpiMaster::setup(){
 
     // Using SPI2 on:
     //  * MISO: PB14
